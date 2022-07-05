@@ -220,6 +220,7 @@ const subject = require("./models/subject");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
+const secret = process.env.SECRET || "thisshouldbeabettersecret";
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   secret: secret,
@@ -229,8 +230,6 @@ const store = MongoStore.create({
 store.on("error", function (e) {
   console.log("SESSION STORE ERROR", e);
 });
-
-const secret = process.env.SECRET || "thisshouldbeabettersecret";
 
 const sessionConfig = {
   store: MongoStore.create({ mongoUrl: dbUrl }),
@@ -620,6 +619,7 @@ app.use((err, req, res, next) => {
   res.render("error.ejs", { err });
 });
 
-app.listen(3000, () => {
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
   console.log("Listening on port 3000");
 });
