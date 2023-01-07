@@ -249,6 +249,7 @@ mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+//"mongodb://localhost:27017/uni-reg"
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -273,6 +274,50 @@ app.use(mongoSanitize());
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+const generatePassword = require("password-generator");
+
+const maxLength = 8;
+const minLength = 8;
+const uppercaseMinCount = 1;
+const lowercaseMinCount = 1;
+const numberMinCount = 1;
+// const specialMinCount = 9;
+const UPPERCASE_RE = /([A-Z])/g;
+const LOWERCASE_RE = /([a-z])/g;
+const NUMBER_RE = /([\d])/g;
+// const SPECIAL_CHAR_RE = /([\?\-])/g;
+const NON_REPEATING_CHAR_RE = /([\w\d\?\-])\1{2,}/g;
+
+function isStrongEnough(password) {
+  var uc = password.match(UPPERCASE_RE);
+  // var lc = password.match(LOWERCASE_RE);
+  var n = password.match(NUMBER_RE);
+  // var sc = password.match(SPECIAL_CHAR_RE);
+  var nr = password.match(NON_REPEATING_CHAR_RE);
+  return (
+    password.length >= minLength &&
+    !nr &&
+    uc &&
+    uc.length >= uppercaseMinCount &&
+    // lc &&
+    // lc.length >= lowercaseMinCount &&
+    n &&
+    n.length >= numberMinCount
+    // sc &&
+    // sc.length >= specialMinCount
+  );
+}
+
+function customPassword() {
+  var password = "";
+  var randomLength =
+    Math.floor(Math.random() * (maxLength - minLength)) + minLength;
+  while (!isStrongEnough(password)) {
+    password = generatePassword(randomLength, false, /[\w\d\?\-]/);
+  }
+  return password;
+}
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
@@ -510,7 +555,9 @@ app.delete(
 //User Routes
 
 app.get("/register", isLoggedIn, isAdmin, (req, res) => {
-  res.render("users/register");
+  const { emailAddress, role, username } = req.query;
+  const newPassword = customPassword();
+  res.render("users/register", { emailAddress, role, username, newPassword });
 });
 
 app.post("/users", isLoggedIn, isAdmin, catchAsync(users.newUser));

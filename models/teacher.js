@@ -20,6 +20,7 @@ const teacherSchema = new mongoose.Schema({
   phoneNumber: {
     type: Number,
     required: ["true", "Phone Number cannot be left blank"],
+    unique: true,
   },
   gender: {
     type: String,

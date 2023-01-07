@@ -117,7 +117,9 @@ module.exports.newStudent = async (req, res) => {
   }
   await newStudent.save();
   req.flash("success", "Successfully added a new student");
-  res.redirect(`/students/${newStudent._id}`);
+  res.redirect(
+    `/register/?emailAddress=${newStudent.emailAddress}&username=${newStudent.phoneNumber}&role=Student&studentId=${newStudent.studentId}`
+  );
 };
 
 module.exports.showStudent = async (req, res) => {

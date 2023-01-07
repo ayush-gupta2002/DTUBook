@@ -3,13 +3,61 @@ const User = require("../models/user");
 const Student = require("../models/student");
 const Teacher = require("../models/teacher");
 const Admin = require("../models/admin");
+const generatePassword = require("password-generator");
+
+const maxLength = 18;
+const minLength = 12;
+const uppercaseMinCount = 3;
+const lowercaseMinCount = 3;
+const numberMinCount = 2;
+const specialMinCount = 2;
+const UPPERCASE_RE = /([A-Z])/g;
+const LOWERCASE_RE = /([a-z])/g;
+const NUMBER_RE = /([\d])/g;
+const SPECIAL_CHAR_RE = /([\?\-])/g;
+const NON_REPEATING_CHAR_RE = /([\w\d\?\-])\1{2,}/g;
+
+function isStrongEnough(password) {
+  var uc = password.match(UPPERCASE_RE);
+  var lc = password.match(LOWERCASE_RE);
+  var n = password.match(NUMBER_RE);
+  var sc = password.match(SPECIAL_CHAR_RE);
+  var nr = password.match(NON_REPEATING_CHAR_RE);
+  return (
+    password.length >= minLength &&
+    !nr &&
+    uc &&
+    uc.length >= uppercaseMinCount &&
+    lc &&
+    lc.length >= lowercaseMinCount &&
+    n &&
+    n.length >= numberMinCount &&
+    sc &&
+    sc.length >= specialMinCount
+  );
+}
+
+function customPassword() {
+  var password = "";
+  var randomLength =
+    Math.floor(Math.random() * (maxLength - minLength)) + minLength;
+  while (!isStrongEnough(password)) {
+    password = generatePassword(randomLength, false, /[\w\d\?\-]/);
+  }
+  return password;
+}
 
 module.exports.renderLoginPage = (req, res) => {
   res.render("users/login");
 };
 
+module.exports.renderRegisterPage = (req, res) => {
+  console.log(req.query);
+};
+
 module.exports.newUser = async (req, res) => {
   const { emailAddress, role, username, password } = req.body;
+  console.log(req.body);
   const newUser = new User({
     emailAddress: emailAddress,
     role: role,

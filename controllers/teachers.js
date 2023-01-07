@@ -109,7 +109,9 @@ module.exports.newTeacher = async (req, res) => {
   }
   await newTeacher.save();
   req.flash("success", "Successfully added new teacher");
-  res.redirect(`/teachers/${newTeacher._id}`);
+  res.redirect(
+    `/register/?emailAddress=${newTeacher.emailAddress}&username=${newTeacher.phoneNumber}&role=Teacher&teacherId=${newTeacher.teacherId}`
+  );
 };
 
 module.exports.deleteTeacher = async (req, res) => {

@@ -63,7 +63,6 @@
           <div class="col mb-3 form-group">
             <label for="gender" class="form-label">Gender</label>
             <select name="gender" id="gender" class="form-select">
-              <option selected>Select</option>
               <option value="Female">Female</option>
               <option value="Male">Male</option>
               <option value="Others">Others</option>
@@ -90,9 +89,8 @@
             rows="5"
             class="form-control"
             required
-          >
-Enter Residence</textarea
-          >
+            placeholder="Enter Residence"
+          ></textarea>
           <div class="valid-feedback">Looks good!</div>
         </div>
         <div class="mb-3 form-group">
@@ -103,7 +101,6 @@ Enter Residence</textarea
             required
             class="form-select"
           >
-            <option selected>Select</option>
             <option value="Professor">Professor</option>
             <option value="Assistant Professor">Assistant Professor</option>
             <option value="Associate Professor">Associate Professor</option>
@@ -119,15 +116,13 @@ Enter Residence</textarea
             rows="5"
             class="form-control"
             required
-          >
-Enter Past Experience</textarea
-          >
+            placeholder="Enter Past Experience"
+          ></textarea>
           <div class="valid-feedback">Looks good!</div>
         </div>
         <div class="mb-3 form-group">
           <label for="subject" class="form-label">Subject</label>
           <select name="subject" id="subject" required class="form-select">
-            <option selected>Select</option>
             <% for(let title of subjectTitles){ %>
             <option value="<%=title%>"><%=title%></option>
             <% } %>

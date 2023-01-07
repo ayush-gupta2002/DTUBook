@@ -12,6 +12,13 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/stylesheets/navbar.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+      integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+      crossorigin="anonymous"
+    />
+    <!-- <link rel="stylesheet" href="/stylesheets/password.css" /> -->
   </head>
   <body class="d-flex flex-column vh-100">
     <%- include('../partials/navbar') %>
@@ -20,6 +27,12 @@
       include("../partials/alertError") %> <%- body %>
     </main>
     <%- include("../partials/footer") %>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/path/to/bootstrap-show-password.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
       integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
@@ -30,6 +43,24 @@
       integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
       crossorigin="anonymous"
     ></script>
+    <script>
+      $(document).ready(function () {
+        $("#show_hide_password a").on("click", function (event) {
+          event.preventDefault();
+          if ($("#show_hide_password input").attr("type") == "text") {
+            $("#show_hide_password input").attr("type", "password");
+            $("#show_hide_password i").addClass("fa-eye-slash");
+            $("#show_hide_password i").removeClass("fa-eye");
+          } else if (
+            $("#show_hide_password input").attr("type") == "password"
+          ) {
+            $("#show_hide_password input").attr("type", "text");
+            $("#show_hide_password i").removeClass("fa-eye-slash");
+            $("#show_hide_password i").addClass("fa-eye");
+          }
+        });
+      });
+    </script>
     <script>
       (function () {
         "use strict";

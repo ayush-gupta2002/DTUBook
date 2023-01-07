@@ -24,6 +24,7 @@ const studentSchema = new mongoose.Schema({
     maxlength: 10,
     minlength: 10,
     min: 0,
+    unique: true,
   },
   gender: {
     type: String,
