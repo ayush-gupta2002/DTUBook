@@ -8,3 +8,7 @@
 ###### Home Page
 
 ![Home Page](Assets/HomePage.png)
+
+###### Student Profile
+
+![Student Profile](Assets/StudentPage.png)
