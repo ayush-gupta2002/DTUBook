@@ -6,3 +6,5 @@
 
 ## Screenshots
 ###### Home Page
+
+![Home Page](Assets/HomePage.png)
