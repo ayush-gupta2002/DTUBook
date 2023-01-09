@@ -12,3 +12,7 @@
 ###### Student Profile
 
 ![Student Profile](Assets/StudentPage.png)
+
+
+https://user-images.githubusercontent.com/96584604/211377303-6c3e78a3-6fee-4761-9c1f-9fd64a30e3f6.mp4
+
